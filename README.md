@@ -1,3 +1,3 @@
 # ConstructorHangman
 
-node.js CLI hangman game using npm and constructor functions
+A node.js CLI hangman game using npm and constructor functions
