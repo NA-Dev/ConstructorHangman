@@ -14,7 +14,6 @@ function Word(randomWord) {
 
   this.init = function() {
     
-
     for (let i=0; i<randomWord.length; i++) {
 
       let char = randomWord.charAt(i).toUpperCase();
@@ -29,6 +28,7 @@ function Word(randomWord) {
       this.solution += char;
     }
   }
+  
   this.init();
 
   this.display = function() {

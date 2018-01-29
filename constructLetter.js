@@ -5,6 +5,7 @@ function Letter(letter, indexInWord) {
   this.guessed = false;
 
   this.display = function() {
+    
     if (this.guessed) {
       return this.value;
 

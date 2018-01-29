@@ -18,7 +18,6 @@ function start() {
   .then(function(answers) {
 
     if (answers.start === true) {
-
         ask();
 
     } else {

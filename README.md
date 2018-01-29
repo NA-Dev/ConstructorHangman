@@ -1,8 +1,9 @@
 # ConstructorHangman
 
+# Guess the names of a random Pokemon!
+
 A node.js CLI hangman game using npm and constructor functions
 
-# Guess the names of a random Pokemon!
 
 Installation:
 
