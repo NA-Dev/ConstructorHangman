@@ -1,38 +1,83 @@
-let Letter = require('./constructLetter.js'),
+var wordList = require('./wordList.js'),
     Word = require('./constructWord.js'),
     inquirer = require('inquirer');
 
-let word = new Word,
-    attempts = 6;
 
-let question = {
+var word = new Word(wordList);
+
+var questions = [
+  {
+    name: "start",
+    type: "confirm",
+    message: "Would you like to start a new game of Hangman?",
+    default: true
+  },
+  {
     name: "guessLetter",
-    message: "Guess a new letter.",
-    validate: function(input) {
-        // removes digits and special characters from input then capitalizes
-        input = input.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
-        let guessedIndex = word.guessed.indexOf(input);
+    type: "input",
+    message: "Guess a new letter: ",
+    validate: function (input) {
+      // removes digits and special characters from input then capitalizes
+      let formattedInput = input
+        .replace(/\W|\d/g, '')
+        .substr(0, 1)
+        .toUpperCase();
 
-        if (guessedIndex !== -1) {
-        return "You already guessed " + input + ", try again.";
+      let guessedIndex = word.guessedLetters.indexOf(formattedInput);
 
-        } else if (!input) {
+      if (guessedIndex !== -1) {
+        return "You already guessed " + formattedInput + ", try another letter.";
+
+      } else if (!formattedInput) {
         return "Invalid input, please enter a letter.";
 
-        } else {
-            this.guessedLetter = input;
-            return true;
-        }
+      } else {
+        return true;
+      }
     }
+  }
+];
+
+function start() {
+
+  console.log('\x1Bc');
+
+  inquirer
+  .prompt(questions[0])
+  .then(function(answers) {
+
+    if (answers.start === true) {
+        ask();
+
+    } else {
+        console.log("Game ended");
+        return;
+    }
+  });
 }
 
-inquirer
-.prompt(question)
-.then(function(input) {
-    // removes digits and special characters from input then capitalizes
-    let t = input.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
-    console.log(input);
-    letter = new Letter(input);
-});
+function ask() {
+
+  word.display();
+  
+  inquirer
+  .prompt( questions[1] )
+  .then( function( answers ) {
+
+    let checkIfSolved = word.guess(answers.guessLetter);
+    if (checkIfSolved) {
+        
+        word.display();
+        console.log('You Win!');
+
+    } else {
+        ask();
+    }
+
+  });
+}
+
+start();
+
 
 

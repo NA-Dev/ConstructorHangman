@@ -1,22 +1,15 @@
-function Letter(input) {
+function Letter(letter, indexInWord) {
 
-  this.inWord =  function() {
-    // input = input.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
-    if (word.indexOf(input) !== -1) {
-      return true;
-    } else {
-      return false;
-    }
-  },
+  this.value = letter;
 
-  this.guess = function() {
-    if (this.inWord) {
-      //replace _ with letter in phrase
-      console.log(input + " is in the mystery word.");
-      word.checkWin();
+  this.guessed = false;
+
+  this.display = function() {
+    if (this.guessed) {
+      return this.value;
+
     } else {
-      console.log(input + " is not in the mystery word.");
-      
+      return "_";
     }
   }
 }
