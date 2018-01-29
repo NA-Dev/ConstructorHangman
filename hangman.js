@@ -1,18 +1,39 @@
-var wordList = require('./wordList.js'),
-    Word = require('./constructWord.js'),
-    inquirer = require('inquirer');
+const pokemon = require('pokemon');
+      Word = require('./constructWord.js'),
+      inquirer = require('inquirer');
 
+var word = new Word(pokemon.random());
 
-var word = new Word(wordList);
+function start() {
+  word = new Word(pokemon.random());
 
-var questions = [
-  {
-    name: "start",
-    type: "confirm",
-    message: "Would you like to start a new game of Hangman?",
-    default: true
-  },
-  {
+  inquirer
+  .prompt(  
+    {
+      name: "start",
+      type: "confirm",
+      message: "Would you like to start a new game of Pokemon Name Hangman?",
+      default: true
+    })
+  .then(function(answers) {
+
+    if (answers.start === true) {
+
+        ask();
+
+    } else {
+        console.log("Game ended");
+        return;
+    }
+  });
+}
+
+function ask() {
+
+  word.display();
+  
+  inquirer
+  .prompt(  {
     name: "guessLetter",
     type: "input",
     message: "Guess a new letter: ",
@@ -35,40 +56,15 @@ var questions = [
         return true;
       }
     }
-  }
-];
-
-function start() {
-
-  console.log('\x1Bc');
-
-  inquirer
-  .prompt(questions[0])
-  .then(function(answers) {
-
-    if (answers.start === true) {
-        ask();
-
-    } else {
-        console.log("Game ended");
-        return;
-    }
-  });
-}
-
-function ask() {
-
-  word.display();
-  
-  inquirer
-  .prompt( questions[1] )
+  })
   .then( function( answers ) {
+    word.guess(answers.guessLetter);
 
-    let checkIfSolved = word.guess(answers.guessLetter);
-    if (checkIfSolved) {
+    if (word.isSolved) {
         
         word.display();
-        console.log('You Win!');
+        console.log('~ ~ ~ ~ ~ You Win! ~ ~ ~ ~ ~\n\n');
+        start();
 
     } else {
         ask();

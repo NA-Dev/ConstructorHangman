@@ -1,12 +1,12 @@
 let Letter = require('./constructLetter.js');
 
-function Word(wordList) {
+function Word(randomWord) {
 
   this.letters = [];
 
   this.guessedLetters = [];
 
-	this.attempts = 6;
+	this.lives = 10;
 
   this.solution = '';
 
@@ -14,9 +14,6 @@ function Word(wordList) {
 
   this.init = function() {
     
-    let randomWord = wordList[
-      Math.floor(Math.random()*(wordList.length))
-    ];
 
     for (let i=0; i<randomWord.length; i++) {
 
@@ -41,7 +38,9 @@ function Word(wordList) {
       characters.push(this.letters[i].display());
     }
 
+    console.log('\x1Bc');
     console.log('\nThe hidden word is: ' + characters.join(' ') + '\n');
+    console.log("You have " + this.lives + " lives left\n");
   }
 
   this.guess = function(input) {
@@ -50,9 +49,6 @@ function Word(wordList) {
       .replace(/\W|\d/g, '')
       .substr(0, 1)
       .toUpperCase();
-
-    console.log('\x1Bc');
-    console.log("Checking for the letter: " + input + " ..." );
 
     this.guessedLetters.push(input);
 
@@ -71,13 +67,8 @@ function Word(wordList) {
       }
     }
 
-    if (isInWord) {
-      console.log("\n" + input + " is in the hidden word");
-
-    } else {
-      this.attempts--;
-      console.log("\n" + input + " is not in the hidden word.");
-      console.log("\nYou have " + this.attempts + " attempts left");
+    if (!isInWord) {
+      this.lives--;
     }
 
     return this.isSolved;

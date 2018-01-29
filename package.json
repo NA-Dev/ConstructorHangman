@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NA-Dev/ConstructorHangman#readme",
   "dependencies": {
-    "inquirer": "^5.0.1"
+    "inquirer": "^5.0.1",
+    "pokemon": "^1.2.2"
   }
 }
