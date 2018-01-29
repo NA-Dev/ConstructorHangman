@@ -39,7 +39,8 @@ function Word(randomWord) {
     }
 
     console.log('\x1Bc');
-    console.log('\nThe hidden word is: ' + characters.join(' ') + '\n');
+    console.log('- - -~~~ Pokemon Hangman ~~~ - - -\n')
+    console.log('\nThe mystery Pokemon name is: ' + characters.join(' ') + '\n');
     console.log("You have " + this.lives + " lives left\n");
   }
 
