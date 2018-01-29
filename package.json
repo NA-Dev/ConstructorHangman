@@ -1,5 +1,5 @@
 {
-  "name": "hangman",
+  "name": "pokemon-hangman",
   "version": "1.0.0",
   "description": "node js hangman game using constructor functions",
   "main": "hangman.js",
